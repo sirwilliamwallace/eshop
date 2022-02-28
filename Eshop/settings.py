@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # django-render-partial
     'django_render_partial',
+    # apps
+    'eshop_account',
 ]
 
 MIDDLEWARE = [
