@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import login_user,logout_user, register_user # autherize_user
+from .views import login_user,logout_user, register_user  # authenticate user
 
 
 app_name = 'eshop_account'
