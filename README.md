@@ -1,6 +1,6 @@
 # eshop
 eshop django
-[!](Setting UP)
+### Setting UP
 ```
 $ python3 -m venv venv
 
