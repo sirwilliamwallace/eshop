@@ -6,11 +6,45 @@
 				<div class="col-sm-4 col-sm-offset-1">
 					<div class="signup-form"><!--sign up form-->
 						<h2>ثبت نام کاربـر جدیـد</h2>
-						<form action="#">
-							<input type="text" placeholder="نام کاربـری"/>
-							<input type="email" placeholder="آدرس ایمیـل"/>
-							<input type="password" placeholder="رمـز عبـور"/>
-							<button type="submit" class="btn btn-default">ثبت نام</button>
+						<form method="post">
+                        {# Handles showing errors #}
+                        {% if register_form.user_name.errors %}
+                            {% for error in  register_form.user_name.errors %}
+                                <p class="alert alert-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                        {% if register_form.email.errors %}
+                            {% for error in  register_form.email.errors %}
+                                <p class="alert alert-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                        {% if register_form.password.errors %}
+                            {% for error in  register_form.password.errors %}
+                                <p class="alert alert-danger">{{ error }}</p>
+                            {% endfor %}
+                            {% for error in  register_form.password_confirm.errors %}
+                                <p class="alert alert-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                            {% csrf_token %}
+                            {# Handles register forms template #}
+
+                            <label for="{{ register_form.user_name.id_for_label }}">نام کاربری :</label>
+                            {{ register_form.user_name }}
+
+                            <label for="{{ register_form.email.id_for_label }}">ایمیل :</label>
+                            {{ register_form.email }}
+
+                            <label for="{{ register_form.password.id_for_label }}">
+                                رمز عبور :
+                            </label>
+                            {{ register_form.password }}
+
+                            <label for="{{ register_form.password_confirm.id_for_label }}">
+                                تکرار رمز عبور :
+                            </label>
+                            {{ register_form.confirm_password }}
+                            <button type="submit" class="btn btn-default">ثبت نام</button>
 						</form>
 					</div><!--/sign up form-->
 				</div>
