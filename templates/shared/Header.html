@@ -51,7 +51,7 @@
                                 <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> سبد خریـد </a></li>
                                         {#checks if user is loged in and then shows the logout button#}
                                         {% if request.user.is_authenticated %}
-										    <li><a href="{% url "eshop_account:login" %}"><i class="fa fa-lock"> خروج </i></a></li>
+										    <li><a href="{% url "eshop_account:logout" %}"><i class="fa fa-lock"> خروج </i></a></li>
                                         {% else %}
 										    <li><a href="{% url "eshop_account:login" %}"> ورود </a></li>
 										    <li><a href="{% url "eshop_account:register" %}"> ثبت نام  </a></li>
@@ -93,7 +93,7 @@
 										<li><a href="cart.html">سبـد خریـد</a></li>
                                         {#checks if user is loged in and then shows the logout button#}
                                         {% if request.user.is_authenticated %}
-										    <li><a href="{% url "eshop_account:login" %}"> خروج </a></li>
+										    <li><a href="{% url "eshop_account:logout" %}"> خروج </a></li>
                                         {% else %}
 										    <li><a href="{% url "eshop_account:login" %}"> ورود </a></li>
 										    <li><a href="{% url "eshop_account:register" %}"> ثبت نام  </a></li>

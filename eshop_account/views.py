@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import LoginForm
-from django.contrib.auth import authenticate, login, get_user_model
+from django.contrib.auth import authenticate, login, get_user_model, logout
+
+
 # Create your views here.
 def login_user(request):
     if request.user.is_authenticated:
@@ -19,6 +21,11 @@ def login_user(request):
     return render(request, 'authentication/login.html', context)
 
 
-def register(request):
+def logout_user(request):
+    logout(request)
+    return redirect('/')
+
+
+def register_user(request):
     context = {}
     return render(request, 'authentication/register.html', context)
