@@ -15,6 +15,8 @@ def login_user(request):
         if user is not None:
             login(request, user)
             return redirect("/")
+        else:
+            login_form.add_error('user_name', "گذرواژه یا نام کاربری اشتباه است")
     context = {
         "login_form": login_form,
     }
