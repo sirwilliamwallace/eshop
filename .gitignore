@@ -105,6 +105,7 @@ celerybeat.pid
 .env
 .venv
 env/
+media_root/
 .idea/
 venv/
 ENV/
