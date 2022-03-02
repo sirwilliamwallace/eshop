@@ -9,7 +9,7 @@ a{% extends 'shared/_MainLayout.html' %}
                 <div class="col-sm-9 padding-right">
                     <div class="features_items"><!--features_items-->
                         <h2 class="title text-center">لیست محصولات</h2>
-                        {% for product in object_list %}
+                        {% for product in page_obj %}
                             <div class="col-sm-4 pull-right">
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
@@ -41,11 +41,29 @@ a{% extends 'shared/_MainLayout.html' %}
 
 
                         <div class="clearfix"></div>
+                        {# Implemented Advanced Pagination  booya#}
                         <ul class="pagination">
-                            <li class="active"><a href="">1</a></li>
-                            <li><a href="">2</a></li>
-                            <li><a href="">3</a></li>
-                            <li><a href="">»</a></li>
+                            {% if page_obj.has_previous %}
+                                {# goes to previous page #}
+                                <li><a href="?page={{ page_obj.previous_page_number }}"> قبلی </a></li>
+                                {# page 1 #}
+                                <li><a href="?page=1">«</a></li>
+                            {% endif %} 
+                            {% for page in paginator.page_range %}
+                                {# makes current page have the class active  #}
+                                {% if page == page_obj.number %}
+                                <li class="active"><a href="?page={{ page }}">{{ page }}</a></li>
+                                {% else %}
+                                <li><a href="?page={{ page }}">{{ page }}</a></li>
+                                {% endif %} 
+                            {% endfor %}
+
+                            {%if page_obj.has_next %}
+                                {# goes to next page #}
+                                <li><a href="?page={{ page_obj.next_page_number }}"> بعدی </a></li>
+                                {# last page  #}
+                                <li><a href="?page={{ page_obj.paginator.num_pages }}"> » </a></li>
+                            {% endif %}
                         </ul>
                     </div><!--features_items-->
                 </div>
