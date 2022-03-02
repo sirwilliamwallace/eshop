@@ -23,8 +23,21 @@ class ProductManager(models.Manager):
     """
     Custom manager for the Product model class to add custom methods
     """
+
     def get_active_products(self):
+        """
+        Get all active products and return them as a queryset
+        """
         return self.get_queryset().filter(active=True)
+
+    def get_by_id(self, id):
+        """
+        Get a product by id and return it if it exists otherwise return None
+        """
+        query_set = self.get_queryset().filter(id=id)
+        if query_set.count() == 1:
+            return query_set.first()
+        return None
 
 
 class Product(models.Model):
@@ -37,6 +50,9 @@ class Product(models.Model):
     image = models.ImageField(upload_to=upload_image_path, null=True, blank=True, verbose_name='تصویر')
     active = models.BooleanField(default=False, verbose_name='فعال')
     objects = ProductManager()
+
+    def get_absolute_url(self):
+        return f"/products/{self.id}/{self.title}"
 
     # Meta class for Product model to set the name of the model in the admin panel
     class Meta:
