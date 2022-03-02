@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_render_partial',
     # apps
     'eshop_account',
+    'eshop_products',
 ]
 
 MIDDLEWARE = [
