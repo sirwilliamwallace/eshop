@@ -56,7 +56,10 @@
 									<span>
 										<span>قیمت : {{ product.price }} تومان</span>
 									</span>
-									<span>
+                                    <span>
+                                        <p><b>توضیحات :</b><i> {{ product.description }} </i></p>
+                                    </span>
+                                    <span>
 										<label>تعداد :</label>
 										<input type="text" value="3" class="search_box">
 										<button type="button" class="btn btn-fefault cart">
@@ -115,7 +118,7 @@
 											<div class="productinfo text-center">
 												<img src="{% static 'images/home/gallery.jpg' %}" alt="">
 												<h2>1.250.000 ريال</h2>
-												<p>توضیحات کوتاه محصول</p>
+                                                <p>توضیحات کوتاه محصول</p>
 												<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</button>
 											</div>
 										</div>
@@ -268,7 +271,7 @@
 										<li><a href=""><i class="fa fa-clock-o"></i>12:41 ب . ظ</a></li>
 										<li><a href=""><i class="fa fa-calendar-o"></i>29 تیـر 1397</a></li>
 									</ul>
-									<p>{{ product.description }}</p>
+
 									<p><b>نظـر خود را بنویسیـد</b></p>
 
 									<form action="#">
