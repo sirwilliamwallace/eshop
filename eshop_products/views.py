@@ -44,4 +44,5 @@ class SearchProducts(ListView):
         get queryset is a method of ListView class that returns a list of objects to be displayed on the page
         """
         query = self.request.GET.get('q')
-        return Product.objects.filter(title__icontains=query, active=True)
+        search = Product.objects.filter(title__icontains=query, active=True) or Product.objects.filter(description__icontains=query, active=True)
+        return search
