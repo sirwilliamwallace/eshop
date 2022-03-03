@@ -67,12 +67,9 @@
 			<div class="container">
 				<div class="row">
                     {% comment %}Search{% endcomment %}
-					<div class="col-sm-3">
-						<div class="search_box pull-left">
-							<input type="text" placeholder="جستـجو"/>
-						</div>
-					</div>
-
+                <div class="col-sm-3">
+                    {% include 'shared/search_component.html' %}
+                </div>
 					<div class="col-sm-9">
 						<div class="navbar-header">
 							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
