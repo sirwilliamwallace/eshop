@@ -52,7 +52,8 @@ class Product(models.Model):
     objects = ProductManager()
 
     def get_absolute_url(self):
-        return f"/products/{self.id}/{self.title}"
+        title_slug = self.title.replace(' ', '-')
+        return f"/products/{self.id}/{title_slug}"
 
     # Meta class for Product model to set the name of the model in the admin panel
     class Meta:
