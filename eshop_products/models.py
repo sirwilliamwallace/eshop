@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 import os
 
 
@@ -38,6 +39,13 @@ class ProductManager(models.Manager):
         if query_set.count() == 1:
             return query_set.first()
         return None
+
+    def search(self, query):
+        """
+        Search for a product by title or description by Q method from django.db.models
+        """
+        lookup = Q(title__icontains=query) | Q(description__icontains=query) # Q method from django.db.models to search for a product by title or description
+        return self.get_queryset().filter(lookup, active=True).distinct()  # distinct() to avoid duplicate results in the search results
 
 
 class Product(models.Model):
