@@ -10,7 +10,7 @@ class ProductListView(ListView):
     """
     model = Product
     template_name = 'products/product_list.html'
-    paginate_by = 2  # Show "n" products per page
+    paginate_by = 10  # Show "n" products per page
 
     def get_queryset(self):
         """
@@ -33,3 +33,15 @@ def product_detail_view(request, *args, **kwargs):
         'product': product
     }
     return render(request, 'products/product_detail.html', context)
+
+
+class SearchProducts(ListView):
+    template_name = 'products/product_list.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        """
+        get queryset is a method of ListView class that returns a list of objects to be displayed on the page
+        """
+        query = self.request.GET.get('q')
+        return Product.objects.filter(title__icontains=query, active=True)
