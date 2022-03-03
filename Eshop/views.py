@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 def header(request, *args, **kwargs):
     context = {
-        "title": "It's a Eshops"
+        "title": "nUmberX",
     }
     return render(request, 'shared/Header.html', context)
 
