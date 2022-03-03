@@ -44,7 +44,7 @@ class ProductManager(models.Manager):
         """
         Search for a product by title or description by Q method from django.db.models
         """
-        lookup = Q(title__icontains=query) | Q(description__icontains=query) # Q method from django.db.models to search for a product by title or description
+        lookup = Q(title__icontains=query) | Q(description__icontains=query) | Q(tag__title__icontains=query)  # Q method from django.db.models to search for a product by title or description or tag
         return self.get_queryset().filter(lookup, active=True).distinct()  # distinct() to avoid duplicate results in the search results
 
 
