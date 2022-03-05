@@ -62,9 +62,14 @@ def product_detail_view(request, *args, **kwargs):
 
     gallery = Gallery.objects.filter(product_id=product_id)
     iterated_galleries = list(gallery_iterate(3, gallery))
+    
+    recommended_products = Product.objects.get_queryset().filter(categories__product=product).distinct()
+    iterated_recommended_products = list(gallery_iterate(3,recommended_products))
+    
     context = {
         'product': product,
-        'galleries': iterated_galleries
+        'galleries': iterated_galleries,
+        "recommended_products": iterated_recommended_products,
     }
     return render(request, 'products/product_detail.html', context)
 
