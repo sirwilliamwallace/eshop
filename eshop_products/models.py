@@ -2,6 +2,8 @@ from django.db import models
 from django.db.models import Q
 import os
 from eshop_products_categories.models import ProductsCategories
+
+
 # Handle the filename and extension
 def get_filename_ext(filepath):
     base_name = os.path.basename(filepath)
@@ -30,6 +32,12 @@ class ProductManager(models.Manager):
         """
         return self.get_queryset().filter(active=True)
 
+    def get_product_by_categories(self, categorie_name):
+        """
+        Get all products by categories
+        """
+        return self.get_queryset().filter(categories__slug__iexact=categorie_name, active=True)
+
     def get_by_id(self, id):
         """
         Get a product by id and return it if it exists otherwise return None
@@ -43,8 +51,10 @@ class ProductManager(models.Manager):
         """
         Search for a product by title or description by Q method from django.db.models
         """
-        lookup = Q(title__icontains=query) | Q(description__icontains=query) | Q(tag__title__icontains=query)  # Q method from django.db.models to search for a product by title or description or tag
-        return self.get_queryset().filter(lookup, active=True).distinct()  # distinct() to avoid duplicate results in the search results
+        lookup = Q(title__icontains=query) | Q(description__icontains=query) | Q(
+            tag__title__icontains=query)  # Q method from django.db.models to search for a product by title or description or tag
+        return self.get_queryset().filter(lookup,
+                                          active=True).distinct()  # distinct() to avoid duplicate results in the search results
 
 
 class Product(models.Model):
