@@ -44,18 +44,22 @@
 									<p>شناسـه : {{ product.id }}</p>
 								</div>
 								<div>
-									<span>
-										<span>قیمت : {{ product.price }} تومان</span>
-									</span>
-                                    <span>
-                                        <p><b>توضیحات :</b><i> {{ product.description }} </i></p>
-                                    </span>
-                                    <span>
-										<label>تعداد :</label>
-										<input type="text" value="3" class="search_box">
-										<button type="button" class="btn btn-fefault cart">
-											<i class="fa fa-shopping-cart"></i>
-											افـزودن به سبـد خریـد
+												<div id="similar-product" class="carousel slide" data-ride="carousel">
+												
+													<!-- Wrapper for slides -->
+													<div class="carousel-inner">
+														{% for gallery_list in galleries %}
+														<div class="item {{ forloop.first|yesno:'active,' }}">
+															{% for product_gallery in gallery_list %}
+															<a href="">
+																<img src="{{ product_gallery.image.url }}" alt="{{ product_gallery.title }}"
+																	style="width: 70px;height: 70px;">
+															</a>
+															{% endfor %}
+														</div>
+														{% endfor %}
+													</div>
+						افـزودن به سبـد خریـد
 										</button>
 									</span>
 								</div>
@@ -287,45 +291,14 @@
 
 						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
 							<div class="carousel-inner">
-								<div class="item active left">
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="{% static 'images/home/recommend1.jpg' %}" alt="">
-													<h2>1.250.000 ريال</h2>
-													<p>توضیحات کوتاه محصول</p>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</button>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="{% static 'images/home/recommend2.jpg' %}" alt="">
-													<h2>1.250.000 ريال</h2>
-													<p>توضیحات کوتاه محصول</p>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</button>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="{% static 'images/home/recommend2.jpg' %}" alt="">
-													<h2>1.250.000 ريال</h2>
-													<p>توضیحات کوتاه محصول</p>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</button>
-												</div>
-											</div>
-										</div>
-									</div>
+								{% for product_list in recommended_products %}
+								<div class="item {{ forloop.first|yesno:'active,' }}">
+									{% for product in product_list %}
+											{% include 'products/product_item_component.html' with product=product %}
+								{% endfor%}
 								</div>
-								<div class="item next left">
+								{% endfor%}
+								<!-- <div class="item next left">
 									<div class="col-sm-4">
 										<div class="product-image-wrapper">
 											<div class="single-products">
@@ -362,7 +335,7 @@
 											</div>
 										</div>
 									</div>
-								</div>
+								</div> -->
 							</div>
 							 <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
 								<i class="fa fa-angle-left"></i>
