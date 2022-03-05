@@ -18,6 +18,12 @@ def upload_image_path(instance, filename):
     return f"products/{final_name}"
 
 
+def upload_gallery_path(instance, filename):
+    name, ext = get_filename_ext(filename)
+    final_name = f"{instance.id}-{instance.title}{ext}"
+    return f"products/gallery_images/{final_name}"
+
+
 # Create your models here.
 # Product model
 # title, description, price, image
@@ -67,7 +73,9 @@ class Product(models.Model):
     image = models.ImageField(upload_to=upload_image_path, null=True, blank=True, verbose_name='تصویر')
     active = models.BooleanField(default=False, verbose_name='فعال')
     categories = models.ManyToManyField(ProductsCategories, verbose_name='دسته بندی ها')
+    # add image to Gallery
     objects = ProductManager()
+
 
     def get_absolute_url(self):
         title_slug = self.title.replace(' ', '-')
@@ -83,3 +91,22 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Gallery(models.Model):
+    """
+    Gallery model class to represent a gallery in the database and to store its data in the database table 'gallery'
+    """
+    title = models.CharField(max_length=255, verbose_name='عنوان')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='محصول')
+    image = models.ImageField(upload_to=upload_gallery_path, null=True, blank=True, verbose_name='تصویر')
+
+    def __str__(self):
+        return self.product.title
+
+    class Meta:
+        """
+        Meta class for Gallery model to set the name of the model in the admin panel
+        """
+        verbose_name = "گالری"
+        verbose_name_plural = "گالری"
