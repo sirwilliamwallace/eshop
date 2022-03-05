@@ -76,7 +76,6 @@ class Product(models.Model):
     # add image to Gallery
     objects = ProductManager()
 
-
     def get_absolute_url(self):
         title_slug = self.title.replace(' ', '-')
         return f"/products/{self.id}/{title_slug}"
