@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'eshop_sliders',
     'eshop_contact',
     "site_settings",
+    'eshop_orders',
 ]
 
 MIDDLEWARE = [
