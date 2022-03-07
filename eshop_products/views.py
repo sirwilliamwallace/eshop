@@ -5,7 +5,7 @@ from django.http import Http404
 from django.views.generic import ListView, DetailView
 from .models import Product , Gallery
 from eshop_products_categories.models import ProductsCategories
-
+from eshop_orders.forms import OrderForm
 
 class ProductListView(ListView):
     """
@@ -56,6 +56,7 @@ def product_detail_view(request, *args, **kwargs):
     TODO: make class based view for this view
     """
     product_id = kwargs.get('id')
+    order_form = OrderForm(request.POST or None, initial={'productId': product_id})
     product = Product.objects.get_by_id(id=product_id)
     if product is None or not product.active:
         raise Http404("محصول مورد نظر یافت نشد")
@@ -70,6 +71,7 @@ def product_detail_view(request, *args, **kwargs):
         'product': product,
         'galleries': iterated_galleries,
         "recommended_products": iterated_recommended_products,
+        "order_form": order_form,
     }
     return render(request, 'products/product_detail.html', context)
 
