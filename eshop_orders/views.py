@@ -23,4 +23,4 @@ def add_order(request):
         # felan redirecte maskhare
         title_product = product.title.replace(' ', '-')
         return redirect(f'/products/{productId}/{title_product}')
-    return redirect(f'eshop_products:product_list')
+    return redirect('/')
