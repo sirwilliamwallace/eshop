@@ -1,4 +1,6 @@
 from django.shortcuts import render
+
+from site_settings.models import SiteSetting
 from .models import Contact
 from .forms import ContactMe
 
@@ -13,7 +15,9 @@ def contact_us(request):
         message = form.cleaned_data['message']
         Contact.objects.create(name=name, email=email, subject=subject, message=message)
         form = ContactMe()
+    setting = SiteSetting.objects.first()
     context = {
-               "form": form
+        "form": form,
+        "setting": setting,
     }
     return render(request, 'contact_us/contact_us.html', context)

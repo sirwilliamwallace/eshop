@@ -7,8 +7,8 @@
 				<div class="container">
 	    			<div class="col-sm-12" style="overflow: hidden; margin-bottom: 40px">
 						<h2 class="title text-center">تمـاس با مـا</h2>
-                        <div id="gmap" class="contact-map">
-								<img src="{% static 'images/home/Map.jpg' %}" alt="Map">
+                        <div id="gmap" class="contact-map center-block">
+								<img src="{% static 'images/home/Map.jpg' %}" alt="Map" width="500px">
                         </div>
 					</div>
 				</div>
@@ -51,12 +51,11 @@
 	    			<div class="contact-info">
 	    				<h2 class="title text-center">اطلاعات تماس</h2>
 	    				<address>
-	    					<p>گـروه تکنوگـرافی 1614</p>
-							<p>ایـران - آذربایجـان غربـی - خـوی</p>
-							<p>مجتـمع تجـاری تفریحـی شمس - طبـقه 2 - پلاک 54</p>
-							<p>تلفن تماس : 80 21 24 36 044</p>
-							<p>فکس : 80 21 24 36 044</p>
-							<p style="font-family: tahoma;">ایمیـل : info@1614GP.ir</p>
+	    					<p>{{ setting.site_title }}</p>
+							<p>{{ setting.site_address }}</p>
+							<p>تلفن تماس :{{ setting.site_phone }}</p>
+							<p>فکس : {{ setting.site_fax }}</p>
+							<p style="font-family: tahoma;">ایمیـل : {{ setting.site_email }}</p>
 	    				</address>
 	    			</div>
     			</div>
