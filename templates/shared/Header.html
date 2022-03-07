@@ -6,8 +6,8 @@
 					<div class="col-sm-6">
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
-								<li><a href="#"><i class="fa fa-phone"></i> 80 21 24 36 98+ </a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+								<li><a href="#"><i class="fa fa-phone"></i> {{ setting.site_phone }}</a></li>
+								<li><a href="#"><i class="fa fa-envelope"></i> {{ setting.site_email }}</a></li>
 							</ul>
 						</div>
 					</div>
@@ -39,7 +39,7 @@
 
 					<div class="col-sm-4" style="text-align: left;">
 						<div class="logo">
-							<a href="index.html"><img src="{% static 'images/home/logo.png' %}" alt="Logo" style="text-align: center;" /></a>
+							<a href="{% url 'home_page' %}"><img src="{{ setting.site_logo.url }}" alt="Logo" style="text-align: center;"  width="100px"/></a>
 						</div>
 					</div>
 
