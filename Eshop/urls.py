@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from .views import home_page, header, footer
+from .views import home_page, header, footer, about_us
 from Eshop import settings
 
 urlpatterns = [
@@ -27,6 +27,7 @@ urlpatterns = [
     path('', include("eshop_orders.urls")),
     path('header', header, name='header'),
     path('footer', footer, name='footer'),
+    path('about-us', about_us, name='about-us'),
     path('admin/', admin.site.urls),
 ]
 if settings.DEBUG:
