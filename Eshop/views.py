@@ -1,16 +1,20 @@
 from django.shortcuts import render
 from eshop_sliders.models import Slider
+from site_settings.models import SiteSetting
+
 
 def header(request, *args, **kwargs):
+    setting = SiteSetting.objects.first()
     context = {
-        "title": "nUmberX",
+            "setting": setting,
     }
     return render(request, 'shared/Header.html', context)
 
 
 def footer(request, *args, **kwargs):
+    setting = SiteSetting.objects.first()
     context = {
-        "about_us": "I'm nUmberX",
+        "setting": setting,
     }
     return render(request, 'shared/Footer.html', context)
 
