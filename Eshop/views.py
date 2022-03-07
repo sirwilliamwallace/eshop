@@ -25,3 +25,9 @@ def home_page(request):
         'sliders': sliders,
     }
     return render(request, 'home_page.html', context)
+def about_us (request):
+    setting = SiteSetting.objects.first()
+    context = {
+        "setting": setting,
+    }
+    return render(request, 'about-us.html', context)
