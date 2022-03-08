@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 
 # Create your views here.
 from eshop_orders.forms import OrderForm
@@ -19,8 +19,21 @@ def add_order(request):
         if tedad <= 0:
             tedad = 1
         product = Product.objects.get_by_id(productId)
-        order.orderdetail_set.create(product_id=product.id, gheymat=product.price * tedad, tedad=tedad)
+        order.orderdetail_set.create(product_id=product.id, gheymat=product.price, tedad=tedad)
         # felan redirecte maskhare
         title_product = product.title.replace(' ', '-')
         return redirect(f'/products/{productId}/{title_product}')
     return redirect('/')
+
+
+@login_required(login_url='eshop_account:login')
+def card_detail(request):
+    context = {
+        "order": None,
+        "details": None,
+    }
+    order: Order = Order.objects.filter(owner_id=request.user.id, isPaid=False).first()
+    if order is not None:
+        context['order'] = order
+        context['details'] = order.orderdetail_set.all()
+    return render(request, 'orders/order_detail.html', context)
