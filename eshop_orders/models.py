@@ -16,14 +16,20 @@ class Order(models.Model):
     class Meta:
         verbose_name = 'سفارش'
         verbose_name_plural = 'سفارشات'
+
+
 class OrderDetail(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='سفارش')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='محصول')
     gheymat = models.IntegerField(verbose_name='قیمت')
     tedad = models.IntegerField(verbose_name='تعداد')
 
+    def get_detail_sum(self):
+        return self.gheymat * self.tedad
+
     def __str__(self):
         return self.product.title
+
     class Meta:
         verbose_name = 'جزئیات سفارش'
         verbose_name_plural = 'جزئیات سفارش'
