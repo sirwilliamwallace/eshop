@@ -70,8 +70,8 @@ def product_detail_view(request, *args, **kwargs):
     context = {
         'product': product,
         'galleries': iterated_galleries,
-        "recommended_products": iterated_recommended_products,
-        "order_form": order_form,
+        'related_products': iterated_recommended_products,
+        'new_order_form': order_form,
     }
     return render(request, 'products/product_detail.html', context)
 
