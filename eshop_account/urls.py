@@ -1,10 +1,11 @@
 from django.urls import path
-from .views import login_user,logout_user, register_user  # authenticate user
 
+from .views import login_user, register, log_out, user_account_main_page, edit_user_profile
 
-app_name = 'eshop_account'
 urlpatterns = [
-    path('login', login_user, name='login'),
-    path('logout', logout_user, name='logout'),
-    path('register', register_user, name='register'),
+    path('login', login_user),
+    path('register', register),
+    path('log-out', log_out),
+    path('user', user_account_main_page),
+    path('user/edit', edit_user_profile)
 ]

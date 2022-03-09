@@ -1,4 +1,3 @@
-
 {% extends 'shared/_MainLayout.html' %}
 {% load static %}
 {% load render_partial %}
@@ -54,11 +53,11 @@
 										<span>قیمت : {{ product.price }} تومان </span>
 									</span>
                                     <span>
-                                        <form method="post" action="{% url 'eshop_orders:add_order' %}">
+                                        <form method="post" action="/add-user-order">
                                             {% csrf_token %}
-                                            {{ order_form.productId }}
+                                            {{ new_order_form.product_id }}
                                             <label>تعداد :</label>
-                                            {{ order_form.tedad }}
+                                            {{ new_order_form.count }}
 										    <button type="submit" class="btn btn-fefault cart">
 											    <i class="fa fa-shopping-cart"></i>
 										    	افـزودن به سبـد خریـد
@@ -298,7 +297,7 @@
 
                 <div class="col-sm-3">
                     <div class="left-sidebar">
-                        {% render_partial 'eshop_products:category_partial_view' %}
+                        {% render_partial 'products_categories_partial' %}
                     </div>
                 </div>
 

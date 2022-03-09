@@ -2,34 +2,35 @@ from django import forms
 from django.core import validators
 
 
-class ContactMe(forms.Form):
-    name = forms.CharField(
+class CreateContactForm(forms.Form):
+    full_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'placeholder': 'لطفا نام و نام خانوادگی خود را وارد نمایید', 'class': 'form-control'}),
         label='نام و نام خانوادگی',
-        label_suffix='',
-        max_length=150,
-        required=True,
-        widget=forms.TextInput(attrs={'class': 'form-control', "placeholder": "نام و نام خانوادگی"}),
-        validators=[validators.MaxLengthValidator(150, "نام و نام خانوادگی باید کمتر از 150 کاراکتر باشد")]
+        validators=[
+            validators.MaxLengthValidator(150, 'نام و نام خانوادگی شما نمیتواند بیشتر از 150 کاراکتر باشد')
+        ]
     )
+
     email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'placeholder': 'لطفا ایمیل خود را وارد نمایید', 'class': 'form-control'}),
         label='ایمیل',
-        label_suffix='',
-        max_length=100,
-        required=True,
-        widget=forms.EmailInput(attrs={'class': 'form-control', "placeholder": "ایمیل"}),
-        validators=[validators.MaxLengthValidator(100, "ایمیل باید کمتر از 100 کاراکتر باشد")]
+        validators=[
+            validators.MaxLengthValidator(100, 'ایمیل شما نمیتواند بیشتر از 100 کاراکتر باشد')
+        ]
     )
+
     subject = forms.CharField(
-        label='موضوع',
-        label_suffix='',
-        max_length=150,
-        required=True,
-        widget=forms.TextInput(attrs={'class': 'form-control', "placeholder": "موضوع"}),
-        validators=[validators.MaxLengthValidator(150, "موضوع باید کمتر از 150 کاراکتر باشد")]
+        widget=forms.TextInput(attrs={'placeholder': 'لطفا عنوان خود را وارد نمایید', 'class': 'form-control'}),
+        label='عنوان',
+        validators=[
+            validators.MaxLengthValidator(200, 'عنوان پیام شما نمیتواند بیشتر از 200 کاراکتر باشد')
+        ]
     )
-    message = forms.CharField(
-        label='پیام',
-        label_suffix='',
-        required=True,
-        widget=forms.Textarea(attrs={'class': 'form-control', "placeholder": "پیام", "rows": "8", "id": "message"}, ),
+
+    text = forms.CharField(
+        widget=forms.Textarea(
+            attrs={'placeholder': 'لطفا متن پیام خود را وارد نمایید', 'class': 'form-control', 'rows': '8',
+                   'cols': '20'}),
+        label='متن پیام'
     )

@@ -1,11 +1,14 @@
 from django.contrib import admin
-from .models import Contact
 
-@admin.register(Contact)
+# Register your models here.
+from .models import ContactUs
+
+
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'subject', 'message', 'created_at', 'isRead',)
-    list_filter = ('isRead', 'created_at')
-    search_fields = ('name', 'email', 'subject', 'message')
-    list_editable = ('isRead',)
-    date_hierarchy = 'created_at'
-    ordering = ('-created_at',)
+    list_display = ['full_name', 'subject', 'is_read']
+    list_filter = ['is_read']
+    list_editable = ['is_read']
+    search_fields = ['subject', 'text']
+
+
+admin.site.register(ContactUs, ContactAdmin)

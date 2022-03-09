@@ -16,24 +16,22 @@ Including another URLconf
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-
+from .views import home_page, header, footer, about_us
 from Eshop import settings
-from .views import home_page, header, footer, about_page
 
 urlpatterns = [
-    path('', home_page),
-    path('', include('eshop_account.urls')),
-    path('', include('eshop_products.urls')),
-    path('', include('eshop_contact.urls')),
-    path('', include('eshop_order.urls')),
-    path('about-us', about_page),
-    path('header', header, name="header"),
-    path('footer', footer, name="footer"),
-    path('admin/', admin.site.urls)
+    path('', home_page, name="home_page"),
+    path('',include("eshop_account.urls")),
+    path('', include("eshop_products.urls")),
+    path('', include("eshop_contact.urls")),
+    path('', include("eshop_orders.urls")),
+    path('header', header, name='header'),
+    path('footer', footer, name='footer'),
+    path('about-us', about_us, name='about-us'),
+    path('admin/', admin.site.urls),
 ]
-
 if settings.DEBUG:
     # add root static files
-    urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     # add media static files
-    urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

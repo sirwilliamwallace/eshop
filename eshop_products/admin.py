@@ -1,20 +1,17 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Product, Gallery
+
+from .models import Product, ProductGallery
 
 
-@admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'title', 'active']
+    list_display = ['__str__', 'title', 'price', 'active']
+    list_editable = []
 
     class Meta:
         model = Product
 
 
-@admin.register(Gallery)
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'product', 'title']
-
-    class Meta:
-        model = Gallery
+admin.site.register(Product, ProductAdmin)
+admin.site.register(ProductGallery)

@@ -1,5 +1,7 @@
-<!DOCTYPE html>
+{% load static %}
 {% load render_partial %}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -7,14 +9,16 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>صفحه اصلی | فروشگاه کارزیبا</title>
-    {% include 'shared/_HeaderRefrences.html' %}{% block header_ref %}{% endblock %}
+    {% include 'shared/_HeaderReferences.html' %}
+    {% block header_ref %}{% endblock %}
 </head>
 <body>
-{# django-render-partial helps to send partials variables from backend #}
+
 {% render_partial 'header' %}
+
 {% block content %}{% endblock %}
-{% block footer_ref %}{% endblock %}
 {% render_partial 'footer' %}
-{% include 'shared/_FooterRefrences.html' %}
+{% include 'shared/_FooterReferences.html' %}
+{% block footer_ref %}{% endblock %}
 </body>
 </html>

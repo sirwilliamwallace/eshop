@@ -1,111 +1,83 @@
-from django.db import models
 from django.db.models import Q
+from django.db import models
 import os
-from eshop_products_categories.models import ProductsCategories
+
+from eshop_products_category.models import ProductCategory
 
 
-# Handle the filename and extension
 def get_filename_ext(filepath):
     base_name = os.path.basename(filepath)
     name, ext = os.path.splitext(base_name)
     return name, ext
 
 
-# End of get_filename_ext
 def upload_image_path(instance, filename):
     name, ext = get_filename_ext(filename)
     final_name = f"{instance.id}-{instance.title}{ext}"
     return f"products/{final_name}"
 
 
-def upload_gallery_path(instance, filename):
+def upload_gallery_image_path(instance, filename):
     name, ext = get_filename_ext(filename)
     final_name = f"{instance.id}-{instance.title}{ext}"
-    return f"products/gallery_images/{final_name}"
+    return f"products/galleries/{final_name}"
 
 
 # Create your models here.
-# Product model
-# title, description, price, image
-class ProductManager(models.Manager):
-    """
-    Custom manager for the Product model class to add custom methods
-    """
 
+class ProductsManager(models.Manager):
     def get_active_products(self):
-        """
-        Get all active products and return them as a queryset
-        """
         return self.get_queryset().filter(active=True)
 
-    def get_product_by_categories(self, categorie_name):
-        """
-        Get all products by categories
-        """
-        return self.get_queryset().filter(categories__slug__iexact=categorie_name, active=True)
+    def get_products_by_category(self, category_name):
+        return self.get_queryset().filter(categories__name__iexact=category_name, active=True)
 
-    def get_by_id(self, id):
-        """
-        Get a product by id and return it if it exists otherwise return None
-        """
-        query_set = self.get_queryset().filter(id=id)
-        if query_set.count() == 1:
-            return query_set.first()
-        return None
+    def get_by_id(self, product_id):
+        qs = self.get_queryset().filter(id=product_id)
+        if qs.count() == 1:
+            return qs.first()
+        else:
+            return None
 
     def search(self, query):
-        """
-        Search for a product by title or description by Q method from django.db.models
-        """
-        lookup = Q(title__icontains=query) | Q(description__icontains=query) | Q(
-            tag__title__icontains=query)  # Q method from django.db.models to search for a product by title or description or tag
-        return self.get_queryset().filter(lookup,
-                                          active=True).distinct()  # distinct() to avoid duplicate results in the search results
+        lookup = (
+                Q(title__icontains=query) |
+                Q(description__icontains=query) |
+                Q(tag__title__icontains=query)
+        )
+        return self.get_queryset().filter(lookup, active=True).distinct()
 
 
 class Product(models.Model):
-    """
-    Product model class to represent a product in the database and to store its data in the database table 'products'
-    """
-    title = models.CharField(max_length=255, verbose_name='عنوان')
+    title = models.CharField(max_length=150, verbose_name='عنوان')
     description = models.TextField(verbose_name='توضیحات')
     price = models.IntegerField(verbose_name='قیمت')
     image = models.ImageField(upload_to=upload_image_path, null=True, blank=True, verbose_name='تصویر')
-    active = models.BooleanField(default=False, verbose_name='فعال')
-    categories = models.ManyToManyField(ProductsCategories, verbose_name='دسته بندی ها')
-    # add image to Gallery
-    objects = ProductManager()
+    active = models.BooleanField(default=False, verbose_name='فعال / غیرفعال')
+    categories = models.ManyToManyField(ProductCategory, blank=True, verbose_name="دسته بندی ها")
+    visit_count = models.IntegerField(default=0, verbose_name='تعداد بازدید')
 
-    def get_absolute_url(self):
-        title_slug = self.title.replace(' ', '-')
-        return f"/products/{self.id}/{title_slug}"
+    objects = ProductsManager()
 
-    # Meta class for Product model to set the name of the model in the admin panel
     class Meta:
-        """
-        Meta class for Product model to set the name of the model in the admin panel
-        """
-        verbose_name = "محصول"
-        verbose_name_plural = "محصولات"
+        verbose_name = 'محصول'
+        verbose_name_plural = 'محصولات'
 
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return f"/products/{self.id}/{self.title.replace(' ', '-')}"
 
-class Gallery(models.Model):
-    """
-    Gallery model class to represent a gallery in the database and to store its data in the database table 'gallery'
-    """
-    title = models.CharField(max_length=255, verbose_name='عنوان')
+
+class ProductGallery(models.Model):
+    title = models.CharField(max_length=150, verbose_name='عنوان')
+    image = models.ImageField(upload_to=upload_gallery_image_path, verbose_name='تصویر')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='محصول')
-    image = models.ImageField(upload_to=upload_gallery_path, null=True, blank=True, verbose_name='تصویر')
-
-    def __str__(self):
-        return self.product.title
 
     class Meta:
-        """
-        Meta class for Gallery model to set the name of the model in the admin panel
-        """
-        verbose_name = "گالری"
-        verbose_name_plural = "گالری"
+        verbose_name = 'تصویر'
+        verbose_name_plural = 'تصاویر'
+
+    def __str__(self):
+        return self.title
