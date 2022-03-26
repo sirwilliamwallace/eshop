@@ -19,7 +19,6 @@ $ python3 manage.py makemigrations
 
 $ python3 manage.py migrate
 
-(OPTIONAL)
 $ python3 manage.py collectstatic
 ```
 ### Run on localhost port 8000
