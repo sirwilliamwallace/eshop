@@ -1,7 +1,7 @@
 asgiref==3.5.0
 attrs==21.4.0
 cached-property==1.5.2
-certifi==2021.10.8
+certifi==2022.12.7
 charset-normalizer==2.0.12
 Django==4.0.7
 django-render-partial==0.4
